@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://pxsjd45gvqp5"]
+
+[ext_resource type="PackedScene" uid="uid://bik2wlfokcc37" path="res://Levels/Level1.tscn" id="1_fcsaq"]
+[ext_resource type="PackedScene" uid="uid://chh1bv4yymsnb" path="res://Characters/Player_Character.tscn" id="2_f06cw"]
+[ext_resource type="PackedScene" uid="uid://cu6lyof7f0yal" path="res://Assets/Weapons/Pistol_basic.tscn" id="2_rwrks"]
+[ext_resource type="PackedScene" uid="uid://do2yw02d6yvik" path="res://Characters/Player_HUD.tscn" id="3_f5l56"]
+
+[node name="Node" type="Node"]
+
+[node name="TileMap" parent="." instance=ExtResource("1_fcsaq")]
+
+[node name="Sprite2D" parent="TileMap" instance=ExtResource("2_rwrks")]
+position = Vector2(148, 223)
+
+[node name="Player_Character" parent="." groups=["Items"] instance=ExtResource("2_f06cw")]
+position = Vector2(470, 33)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player_Character"]
+
+[node name="Player_HUD" parent="Player_Character/CanvasLayer" instance=ExtResource("3_f5l56")]

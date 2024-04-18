@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw0oaag10kjtg"]
+
+[ext_resource type="Script" path="res://Assets/Item.gd" id="1_pgjex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvme4"]
+size = Vector2(18, 18)
+
+[node name="Sprite2D" type="Sprite2D"]
+script = ExtResource("1_pgjex")
+
+[node name="ItemArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemArea"]
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_wvme4")

@@ -1,0 +1,81 @@
+[gd_scene load_steps=10 format=3 uid="uid://do2yw02d6yvik"]
+
+[ext_resource type="Script" path="res://Characters/Player_HUD.gd" id="1_j4cuf"]
+[ext_resource type="Texture2D" uid="uid://cld8elwk73p2q" path="res://Assets/Toolbar_tmp.png" id="2_yhdry"]
+[ext_resource type="Texture2D" uid="uid://c3ajeddm6cyvb" path="res://Assets/Wall_tmp.png" id="3_yp23x"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_ax8wc"]
+device = -1
+keycode = 49
+unicode = 49
+
+[sub_resource type="Shortcut" id="Shortcut_37a0l"]
+events = [SubResource("InputEventKey_ax8wc")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_m1vmu"]
+device = -1
+keycode = 50
+unicode = 50
+
+[sub_resource type="Shortcut" id="Shortcut_kkpbr"]
+events = [SubResource("InputEventKey_m1vmu")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_wdvah"]
+device = -1
+keycode = 51
+unicode = 51
+
+[sub_resource type="Shortcut" id="Shortcut_wpbnv"]
+events = [SubResource("InputEventKey_wdvah")]
+
+[node name="Player_HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j4cuf")
+metadata/_edit_group_ = true
+
+[node name="Weapon Bar" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -196.0
+offset_top = -128.0
+offset_right = 196.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+pivot_offset = Vector2(196, 64)
+
+[node name="Light" type="TextureButton" parent="Weapon Bar"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_37a0l")
+texture_normal = ExtResource("2_yhdry")
+
+[node name="Light_Sprite" type="Sprite2D" parent="Weapon Bar/Light"]
+position = Vector2(64, 64)
+texture = ExtResource("3_yp23x")
+
+[node name="Medium" type="TextureButton" parent="Weapon Bar"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_kkpbr")
+texture_normal = ExtResource("2_yhdry")
+
+[node name="Medium_Sprite" type="Sprite2D" parent="Weapon Bar/Medium"]
+position = Vector2(65.3333, 65.3333)
+texture = ExtResource("3_yp23x")
+
+[node name="Heavy" type="TextureButton" parent="Weapon Bar"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_wpbnv")
+texture_normal = ExtResource("2_yhdry")
+
+[node name="Heavy_Sprite" type="Sprite2D" parent="Weapon Bar/Heavy"]
+position = Vector2(58.6667, 68)
+texture = ExtResource("3_yp23x")

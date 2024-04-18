@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://cu6lyof7f0yal"]
+
+[ext_resource type="Texture2D" uid="uid://bp1fittyndvq8" path="res://Assets/Pistol_icon.png" id="1_it4ns"]
+[ext_resource type="Script" path="res://Assets/Weapons/Pistol_basic.gd" id="1_tr2ik"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ii4d1"]
+size = Vector2(64, 64)
+
+[node name="Pistolbasic" type="Sprite2D"]
+texture = ExtResource("1_it4ns")
+script = ExtResource("1_tr2ik")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -96.0
+offset_right = 68.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 20)
+color = Color(0.121569, 0.121569, 0.121569, 0.388235)
+metadata/_edit_group_ = true
+
+[node name="PickupPopUp" type="RichTextLabel" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -12.5
+offset_right = 95.0
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Press E to pickup Pistol"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ii4d1")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

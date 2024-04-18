@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://chh1bv4yymsnb"]
+
+[ext_resource type="Script" path="res://Characters/PlayerCharacter.gd" id="1_yajig"]
+[ext_resource type="Texture2D" uid="uid://xijgenqxu65w" path="res://icon.svg" id="2_r4oo2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_toe56"]
+radius = 52.0096
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_027m0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_r4oo2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y1xey"]
+size = Vector2(80, 88)
+
+[node name="Player_Character" type="CharacterBody2D"]
+script = ExtResource("1_yajig")
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_toe56")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_027m0")
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+zoom = Vector2(0.75, 0.75)
+position_smoothing_enabled = true
+
+[node name="PlayerPickupArea" type="Area2D" parent="."]
+
+[node name="PlayerPickupCollision" type="CollisionShape2D" parent="PlayerPickupArea"]
+position = Vector2(0, -44)
+shape = SubResource("RectangleShape2D_y1xey")
+
+[connection signal="area_entered" from="PlayerPickupArea" to="." method="_on_player_pickup_area_area_entered"]

@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://v24217q82b5y"]
+
+[ext_resource type="Texture2D" uid="uid://bp1fittyndvq8" path="res://Assets/Pistol_icon.png" id="1_fnajo"]
+[ext_resource type="Script" path="res://Assets/Weapons/Pistol.gd" id="2_k7dci"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j2v0q"]
+radius = 76.3217
+
+[node name="Pistol" type="Sprite2D"]
+texture = ExtResource("1_fnajo")
+script = ExtResource("2_k7dci")
+metadata/_edit_group_ = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 1
+lifetime = 0.5
+one_shot = true
+gravity = Vector2(0, 0)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-1.39876e-06, -32)
+
+[node name="PistolArea" type="Area2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PistolArea"]
+shape = SubResource("CircleShape2D_j2v0q")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -96.0
+offset_right = 68.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.121569, 0.121569, 0.121569, 0.388235)
+metadata/_edit_group_ = true
+
+[node name="PickupPopUp" type="RichTextLabel" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -12.5
+offset_right = 95.0
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Press E to pickup Pistol"
+
+[connection signal="body_entered" from="PistolArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="PistolArea" to="." method="_on_area_2d_body_exited"]
