@@ -5,10 +5,16 @@ var Acceleration = 9.0
 
 var input: Vector2
 
+@export var controlType = "Relative"
+
 signal MouseClick
 signal PickupClick
 
-var inventory = {"WeaponLight":[],}
+var playerInventory = {"WeaponLight":{},"WeaponMedium":{},"WeaponHeavy":{},"Grenade":{}}
+var equipped = "None"
+
+#Contains array of all items in the play pickup area
+var enteredItemsArea = []
 
 func get_input():
 	input.x = Input.get_action_strength("Right") - Input.get_action_strength("Left")
@@ -40,16 +46,11 @@ func set_camera():
 				
 		$PlayerCamera.position = mouse_pos/1.9
 
-func _on_player_pickup_area_area_entered(area):
-	print()
-	
-
 func _process(delta):
 	#var angle = atan((mouse_pos.y)/(mouse_pos.x))
 	var playerInput = get_input()
 	
-	var controlType = "Relative"
-	
+	# Changes movement direction based on selected control mode
 	match controlType:
 		"Independent":
 			velocity = lerp(velocity, playerInput * Speed, delta * Acceleration)
@@ -67,4 +68,41 @@ func _physics_process(_delta):
 	if Input.is_action_just_released("PickupItem"):
 		PickupClick.emit()
 		print("Pickup")
+		
+		if enteredItemsArea!=[]:
+			print(enteredItemsArea)
+			
+			# checks what type of node the entered area is, so that I can use the pickup
+			# button for more than just picking up items
+			if str(enteredItemsArea[0].get_parent()).contains("Item"):
+				var Item = enteredItemsArea[0].get_parent()
+				add_to_inventory(Item)
+				print(playerInventory)
+				
 	look_at(get_global_mouse_position())
+
+
+func add_to_inventory(Item):
+	print(playerInventory[Item.itemDict["Type"]])
+	# adds item to inventory, and then removes it if the inventory slot is free
+	if playerInventory[Item.itemDict["Type"]] == {}:
+		playerInventory[Item.itemDict["Type"]] = Item.itemDict
+		enteredItemsArea.erase(enteredItemsArea[0])
+		Item.remove_Item()
+	else:
+		# If there is something already in the inventory, swap the item information
+		# with eachother
+		var originalItem = playerInventory[Item.itemDict["Type"]]
+		playerInventory[Item.itemDict["Type"]] = Item.itemDict
+		Item.itemDict = originalItem
+		Item.update_Item()
+		
+
+func _on_player_pickup_area_area_entered(area):
+	enteredItemsArea+=[area]
+	print(enteredItemsArea)
+
+func _on_player_pickup_area_area_exited(area):
+	enteredItemsArea.erase(area)
+
+

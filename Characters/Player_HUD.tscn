@@ -38,7 +38,7 @@ grow_vertical = 2
 script = ExtResource("1_j4cuf")
 metadata/_edit_group_ = true
 
-[node name="Weapon Bar" type="HBoxContainer" parent="."]
+[node name="WeaponBar" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -53,29 +53,65 @@ grow_vertical = 0
 scale = Vector2(0.75, 0.75)
 pivot_offset = Vector2(196, 64)
 
-[node name="Light" type="TextureButton" parent="Weapon Bar"]
+[node name="Light" type="TextureButton" parent="WeaponBar"]
 layout_mode = 2
 shortcut = SubResource("Shortcut_37a0l")
 texture_normal = ExtResource("2_yhdry")
 
-[node name="Light_Sprite" type="Sprite2D" parent="Weapon Bar/Light"]
+[node name="Light_Sprite" type="Sprite2D" parent="WeaponBar/Light"]
 position = Vector2(64, 64)
 texture = ExtResource("3_yp23x")
 
-[node name="Medium" type="TextureButton" parent="Weapon Bar"]
+[node name="Medium" type="TextureButton" parent="WeaponBar"]
 layout_mode = 2
+toggle_mode = true
 shortcut = SubResource("Shortcut_kkpbr")
 texture_normal = ExtResource("2_yhdry")
 
-[node name="Medium_Sprite" type="Sprite2D" parent="Weapon Bar/Medium"]
+[node name="Medium_Sprite" type="Sprite2D" parent="WeaponBar/Medium"]
 position = Vector2(65.3333, 65.3333)
 texture = ExtResource("3_yp23x")
 
-[node name="Heavy" type="TextureButton" parent="Weapon Bar"]
+[node name="Heavy" type="TextureButton" parent="WeaponBar"]
 layout_mode = 2
 shortcut = SubResource("Shortcut_wpbnv")
 texture_normal = ExtResource("2_yhdry")
 
-[node name="Heavy_Sprite" type="Sprite2D" parent="Weapon Bar/Heavy"]
+[node name="Heavy_Sprite" type="Sprite2D" parent="WeaponBar/Heavy"]
 position = Vector2(58.6667, 68)
 texture = ExtResource("3_yp23x")
+
+[node name="HealthDisplay" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -63.0
+offset_right = -12.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Health"
+horizontal_alignment = 2
+
+[node name="HealthAmount" type="Label" parent="HealthDisplay"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = 3.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "100"
+horizontal_alignment = 2
+
+[connection signal="pressed" from="WeaponBar/Light" to="." method="_on_light_pressed"]
+[connection signal="pressed" from="WeaponBar/Medium" to="." method="_on_medium_pressed"]
+[connection signal="pressed" from="WeaponBar/Heavy" to="." method="_on_heavy_pressed"]

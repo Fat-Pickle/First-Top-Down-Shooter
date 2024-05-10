@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw0oaag10kjtg"]
+
+[ext_resource type="Texture2D" uid="uid://bbsdr21cxg3pu" path="res://Assets/Items/Item_Icons/no_texture.png" id="1_xk86v"]
+[ext_resource type="Script" path="res://Assets/Items/Item.gd" id="2_i54v4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvme4"]
+size = Vector2(18, 18)
+
+[node name="Item" type="Sprite2D"]
+position = Vector2(432, 288)
+texture = ExtResource("1_xk86v")
+script = ExtResource("2_i54v4")
+metadata/_edit_group_ = true
+
+[node name="ItemArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemArea"]
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_wvme4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -96.0
+offset_right = 68.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 20)
+color = Color(0.121569, 0.121569, 0.121569, 0.388235)
+
+[node name="PickupPopUp" type="RichTextLabel" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -12.5
+offset_right = 95.0
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Press E to pickup"
+
+[connection signal="body_entered" from="ItemArea" to="." method="_on_item_area_body_entered"]
+[connection signal="body_exited" from="ItemArea" to="." method="_on_item_area_body_exited"]

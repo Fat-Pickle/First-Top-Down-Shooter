@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://cu6lyof7f0yal"]
 
-[ext_resource type="Texture2D" uid="uid://bp1fittyndvq8" path="res://Assets/Pistol_icon.png" id="1_it4ns"]
-[ext_resource type="Script" path="res://Assets/Weapons/Pistol_basic.gd" id="1_tr2ik"]
+[ext_resource type="Texture2D" uid="uid://bp1fittyndvq8" path="res://Assets/Items/Item_Icons/Pistol_icon.png" id="1_it4ns"]
+[ext_resource type="Script" path="res://Assets/Weapons/Pistol_pickup.gd" id="2_yoag7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ii4d1"]
 size = Vector2(64, 64)
 
 [node name="Pistolbasic" type="Sprite2D"]
 texture = ExtResource("1_it4ns")
-script = ExtResource("1_tr2ik")
+script = ExtResource("2_yoag7")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false

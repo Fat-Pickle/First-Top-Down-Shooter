@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="Top_down_shooter"
+run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+itemLoader="*res://itemLoader.gd"
 
 [input]
 

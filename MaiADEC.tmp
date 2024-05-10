@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://pxsjd45gvqp5"]
 
 [ext_resource type="PackedScene" uid="uid://bik2wlfokcc37" path="res://Levels/Level1.tscn" id="1_fcsaq"]
-[ext_resource type="Script" path="res://itemLoader.gd" id="1_vvmph"]
+[ext_resource type="Script" path="res://Main.gd" id="1_tgb5q"]
 [ext_resource type="PackedScene" uid="uid://chh1bv4yymsnb" path="res://Characters/Player_Character.tscn" id="2_f06cw"]
 [ext_resource type="PackedScene" uid="uid://do2yw02d6yvik" path="res://Characters/Player_HUD.tscn" id="3_f5l56"]
 [ext_resource type="PackedScene" uid="uid://bw0oaag10kjtg" path="res://Assets/Items/Item.tscn" id="4_1571d"]
 
 [node name="Main" type="Node"]
-script = ExtResource("1_vvmph")
+script = ExtResource("1_tgb5q")
 
 [node name="TileMap" parent="." instance=ExtResource("1_fcsaq")]
 
@@ -18,22 +18,7 @@ position = Vector2(470, 33)
 
 [node name="Player_HUD" parent="Player_Character/CanvasLayer" instance=ExtResource("3_f5l56")]
 
+[node name="Item" parent="." instance=ExtResource("4_1571d")]
+
 [node name="Item2" parent="." instance=ExtResource("4_1571d")]
 position = Vector2(421, -159)
-itemDict = {
-"Amount": 0,
-"MagazineAmmo": 30,
-"ReserveAmmo": 40,
-"Type": "WeaponLight",
-"itemID": "SMG"
-}
-
-[node name="Item3" parent="." instance=ExtResource("4_1571d")]
-position = Vector2(129, 8)
-itemDict = {
-"Amount": 0,
-"MagazineAmmo": 10,
-"ReserveAmmo": 40,
-"Type": "WeaponLight",
-"itemID": "PistolBasic"
-}

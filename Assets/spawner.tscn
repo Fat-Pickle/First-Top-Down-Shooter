@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5dk5ug42eueq"]
+
+[ext_resource type="Script" path="res://Spawner.gd" id="1_x6864"]
+
+[node name="Spawner" type="Marker2D"]
+gizmo_extents = 32.0
+script = ExtResource("1_x6864")
+metadata/_edit_group_ = true
