@@ -55,10 +55,12 @@ func read_item_configs(path : String):
 			#print(itemDict)
 			allItems[itemDict["itemID"]]= itemDict
 			itemDict = {}
-			print(allItems)
+			#print(allItems)
 			
 func _ready():
 	find_item_cfg_files("res://Assets/Items/")
+	# make it so that it doesn't use static file paths, it should iterate the files
+	# found with find_item_cfg_files
 	read_item_configs("res://Assets/Items/test.cfg")
 	# update items so they use their proper textures
 	get_tree().call_group("Items", "update_Item")

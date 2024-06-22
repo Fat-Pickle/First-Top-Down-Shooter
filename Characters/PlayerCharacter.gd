@@ -7,11 +7,10 @@ var input: Vector2
 
 @export var controlType = "Relative"
 
-signal MouseClick
-signal PickupClick
-
 var playerInventory = {"WeaponLight":{},"WeaponMedium":{},"WeaponHeavy":{},"Grenade":{}}
-var equipped = "None"
+# Currently equipped weapon from playerInventory
+# Contains magazine and reserve information, as well as the itemID
+var equipped = { }
 
 #Contains array of all items in the play pickup area
 var enteredItemsArea = []
@@ -46,8 +45,8 @@ func set_camera():
 				
 		$PlayerCamera.position = mouse_pos/1.9
 
+# Manages movement of the player character 
 func _process(delta):
-	#var angle = atan((mouse_pos.y)/(mouse_pos.x))
 	var playerInput = get_input()
 	
 	# Changes movement direction based on selected control mode
@@ -60,13 +59,21 @@ func _process(delta):
 	set_camera()
 	move_and_slide()
 
+# Consider replacing this with unhandled input method
 func _physics_process(_delta):
+	# Having this in physics process makes it behave smoother,
+	# but also caps out the weapon fire rate
 	if Input.is_action_pressed("PrimaryClick"):
-		MouseClick.emit()
-		print("clicking")
+		#print("clicking")
+		var weapon = get_node_or_null("Weapon")
+		
+		if weapon != null and equipped != { } :
+			weapon.fire_weapon()
+	
+	if Input.is_action_just_released("ReloadWeapon") and playerInventory != { } :
+		$Weapon.reload_weapon()
 	
 	if Input.is_action_just_released("PickupItem"):
-		PickupClick.emit()
 		print("Pickup")
 		
 		if enteredItemsArea!=[]:
@@ -81,26 +88,32 @@ func _physics_process(_delta):
 				
 	look_at(get_global_mouse_position())
 
-
 func add_to_inventory(Item):
-	print(playerInventory[Item.itemDict["Type"]])
+	# Get the weapon's slot type
+	var itemType = itemLoader.allItems[Item.itemDict["itemID"]]["itemType"]
+	print("test",playerInventory[itemType])
+	
 	# adds item to inventory, and then removes it if the inventory slot is free
-	if playerInventory[Item.itemDict["Type"]] == {}:
-		playerInventory[Item.itemDict["Type"]] = Item.itemDict
+	if playerInventory[itemType] == {}:
+		playerInventory[itemType] = Item.itemDict
 		enteredItemsArea.erase(enteredItemsArea[0])
 		Item.remove_Item()
+		
+		equipped = playerInventory[itemType]
+		$CanvasLayer/Player_HUD.updateIcons()
 	else:
 		# If there is something already in the inventory, swap the item information
 		# with eachother
-		var originalItem = playerInventory[Item.itemDict["Type"]]
-		playerInventory[Item.itemDict["Type"]] = Item.itemDict
+		var originalItem = playerInventory[itemType]
+		playerInventory[itemType] = Item.itemDict
 		Item.itemDict = originalItem
 		Item.update_Item()
-		
+		equipped = playerInventory[itemType]
+		$CanvasLayer/Player_HUD.updateIcons()
 
 func _on_player_pickup_area_area_entered(area):
 	enteredItemsArea+=[area]
-	print(enteredItemsArea)
+	#print(enteredItemsArea)
 
 func _on_player_pickup_area_area_exited(area):
 	enteredItemsArea.erase(area)

@@ -1,16 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://chh1bv4yymsnb"]
+[gd_scene load_steps=7 format=3 uid="uid://chh1bv4yymsnb"]
 
 [ext_resource type="Script" path="res://Characters/PlayerCharacter.gd" id="1_yajig"]
-[ext_resource type="Texture2D" uid="uid://xijgenqxu65w" path="res://icon.svg" id="2_r4oo2"]
+[ext_resource type="Texture2D" uid="uid://cso8me2ekmipn" path="res://Characters/Player_Character2.png" id="2_nveki"]
+[ext_resource type="Texture2D" uid="uid://darr41d3w65ji" path="res://Characters/Player_Character_walking.png" id="3_pq2gg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_toe56"]
-radius = 52.0096
+radius = 32.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_027m0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_r4oo2")
+"texture": ExtResource("3_pq2gg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_nveki")
 }],
 "loop": true,
 "name": &"default",
@@ -18,9 +22,11 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s5pu4"]
-size = Vector2(48, 80)
+size = Vector2(32, 48)
 
 [node name="Player_Character" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_yajig")
 controlType = "Independent"
 
@@ -29,17 +35,18 @@ shape = SubResource("CircleShape2D_toe56")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 rotation = 1.5708
-scale = Vector2(0.75, 0.75)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_027m0")
+frame = 1
+frame_progress = 0.140344
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
-zoom = Vector2(0.75, 0.75)
 position_smoothing_enabled = true
 
 [node name="PlayerPickupArea" type="Area2D" parent="."]
 
 [node name="PickupCollision" type="CollisionShape2D" parent="PlayerPickupArea"]
-position = Vector2(56, 0)
+position = Vector2(32, 0)
 shape = SubResource("RectangleShape2D_s5pu4")
 
 [connection signal="area_entered" from="PlayerPickupArea" to="." method="_on_player_pickup_area_area_entered"]

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdngdelehtn4r"]
+
+[ext_resource type="Texture2D" uid="uid://bekxjs4tnc1hu" path="res://Assets/Weapons/bullet.png" id="1_5j1b3"]
+[ext_resource type="Script" path="res://Assets/Weapons/Bullet.gd" id="1_b7mpo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k8uso"]
+radius = 5.0
+
+[node name="RigidBody2D" type="RigidBody2D"]
+collision_layer = 3
+collision_mask = 2
+mass = 0.05
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_b7mpo")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_k8uso")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5j1b3")
+
+[connection signal="body_entered" from="." to="." method="_on_hit"]

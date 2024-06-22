@@ -2,7 +2,6 @@ extends Sprite2D
 
 @export var itemDict = {
 	"itemID": "",
-	"Type":"",
 	"Amount": 0,
 	"MagazineAmmo":0,
 	"ReserveAmmo":0}
@@ -10,7 +9,16 @@ extends Sprite2D
 func _ready():
 	add_to_group("Items")
 	set_process_input(false)
-
+	
+	# Add data verification at some point
+	var itemLoaderInfo = itemLoader.allItems[itemDict["itemID"]]
+	
+	if itemDict["MagazineAmmo"] > itemLoaderInfo["magSize"]:
+		itemDict["MagazineAmmo"] = itemLoaderInfo["magSize"]
+	
+	if itemDict["ReserveAmmo"] > itemLoaderInfo["reserveCapacity"]:
+		itemDict["ReserveAmmo"] = itemLoaderInfo["reserveCapacity"]
+	
 #removes item node
 func remove_Item():
 	queue_free()

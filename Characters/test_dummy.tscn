@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdermnb0odkkj"]
+
+[ext_resource type="Script" path="res://TestDummy.gd" id="1_633x2"]
+[ext_resource type="Texture2D" uid="uid://xijgenqxu65w" path="res://icon.svg" id="2_k8arx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7wdsd"]
+radius = 77.1622
+
+[node name="TestDummy" type="CharacterBody2D"]
+position = Vector2(575, 323)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_633x2")
+health = 10
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7wdsd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_k8arx")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -58.0
+offset_top = -90.0
+offset_right = 54.0
+offset_bottom = -67.0
+text = "dads"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

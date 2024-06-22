@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://pxsjd45gvqp5"]
+[gd_scene load_steps=8 format=3 uid="uid://pxsjd45gvqp5"]
 
 [ext_resource type="PackedScene" uid="uid://bik2wlfokcc37" path="res://Levels/Level1.tscn" id="1_fcsaq"]
 [ext_resource type="Script" path="res://itemLoader.gd" id="1_vvmph"]
 [ext_resource type="PackedScene" uid="uid://chh1bv4yymsnb" path="res://Characters/Player_Character.tscn" id="2_f06cw"]
 [ext_resource type="PackedScene" uid="uid://do2yw02d6yvik" path="res://Characters/Player_HUD.tscn" id="3_f5l56"]
 [ext_resource type="PackedScene" uid="uid://bw0oaag10kjtg" path="res://Assets/Items/Item.tscn" id="4_1571d"]
+[ext_resource type="PackedScene" uid="uid://cpdpmi48q2724" path="res://Assets/Weapons/BasicWeapon.tscn" id="6_ffjne"]
+[ext_resource type="PackedScene" uid="uid://bdermnb0odkkj" path="res://Characters/test_dummy.tscn" id="7_mw2yl"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_vvmph")
@@ -13,6 +15,10 @@ script = ExtResource("1_vvmph")
 
 [node name="Player_Character" parent="." instance=ExtResource("2_f06cw")]
 position = Vector2(470, 33)
+controlType = "Relative"
+
+[node name="Weapon" parent="Player_Character" instance=ExtResource("6_ffjne")]
+position = Vector2(63, 2)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Player_Character"]
 
@@ -22,18 +28,60 @@ position = Vector2(470, 33)
 position = Vector2(421, -159)
 itemDict = {
 "Amount": 0,
-"MagazineAmmo": 30,
+"MagazineAmmo": 40,
 "ReserveAmmo": 40,
-"Type": "WeaponLight",
-"itemID": "SMG"
+"itemID": "PistolBasic"
+}
+
+[node name="Item5" parent="." instance=ExtResource("4_1571d")]
+position = Vector2(429, -329)
+itemDict = {
+"Amount": 0,
+"MagazineAmmo": 6,
+"ReserveAmmo": 12,
+"itemID": "RevolverBasic"
 }
 
 [node name="Item3" parent="." instance=ExtResource("4_1571d")]
-position = Vector2(129, 8)
+position = Vector2(-23, -149)
 itemDict = {
 "Amount": 0,
-"MagazineAmmo": 10,
-"ReserveAmmo": 40,
-"Type": "WeaponLight",
-"itemID": "PistolBasic"
+"MagazineAmmo": 100,
+"ReserveAmmo": 200,
+"itemID": "HMG"
 }
+
+[node name="Item7" parent="." instance=ExtResource("4_1571d")]
+position = Vector2(-23, -334)
+itemDict = {
+"Amount": 0,
+"MagazineAmmo": 6,
+"ReserveAmmo": 12,
+"itemID": "GL6"
+}
+
+[node name="Item4" parent="." instance=ExtResource("4_1571d")]
+position = Vector2(140, -151)
+itemDict = {
+"Amount": 0,
+"MagazineAmmo": 30,
+"ReserveAmmo": 120,
+"itemID": "SMG"
+}
+
+[node name="Item6" parent="." instance=ExtResource("4_1571d")]
+position = Vector2(146, -337)
+itemDict = {
+"Amount": 0,
+"MagazineAmmo": 30,
+"ReserveAmmo": 60,
+"itemID": "M4"
+}
+
+[node name="TestDummy" parent="." instance=ExtResource("7_mw2yl")]
+position = Vector2(804, -38)
+
+[connection signal="reload" from="Player_Character/Weapon" to="Player_Character/CanvasLayer/Player_HUD" method="start_progress_bar_fill"]
+[connection signal="setProgressBarValue" from="Player_Character/Weapon" to="Player_Character/CanvasLayer/Player_HUD" method="set_progress_bar_value"]
+[connection signal="updateAmmoDisplay" from="Player_Character/Weapon" to="Player_Character/CanvasLayer/Player_HUD" method="update_ammo_hud"]
+[connection signal="updateWeapon" from="Player_Character/CanvasLayer/Player_HUD" to="Player_Character/Weapon" method="update_weapon"]
